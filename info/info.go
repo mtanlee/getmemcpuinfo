@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type YunFanConf struct {
+type GetInfoConf struct {
 	Ak           string
 	Sk           string
 	Action       string
@@ -44,16 +44,16 @@ type SendALiYunINFO struct {
 }
 
 type Signature struct {
-	AccessKeyId      string
-	Action           string
-	DBInstanceId     string
-	EndTime          string
-	Format           string
-	Key              string
-	SignatureMethod  string
-	SignatureNonce   string
-	SignatureVersion string
-	StartTime        string
-	Timestamp        string
-	Version          string
+	AccessKeyId      string //`json:"AccessKeyId"`
+	Action           string //`json:"Action"`
+	DBInstanceId     string //`json:"DBInstanceId"`
+	EndTime          string //`json:"EndTime"`
+	Format           string //`json:"Format"`
+	Key              string //`json:"Key"`
+	SignatureMethod  string //`json:"SignatureMethod"`
+	SignatureNonce   string //`json:"SignatureNonce"`
+	SignatureVersion string //`json:"SignatureVersion"`
+	StartTime        string //`json:"StartTime"`
+	Timestamp        string //`json:"Timestamp"`
+	Version          string //`json:"Version"`
 }

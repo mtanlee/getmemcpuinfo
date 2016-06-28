@@ -21,7 +21,7 @@ var (
 		{
 			Name:      "create",
 			ShortName: "c",
-			Usage:     "Create a yunfanconf",
+			Usage:     "Create a getinfconf",
 			Action:    CreateConf,
 		},
 	}
@@ -42,8 +42,8 @@ func Run() {
 	app.Usage = "A transfer message"
 	app.Version = version.VERSION
 
-	app.Author = ""
-	app.Email = ""
+	app.Author = "mtanlee"
+	app.Email = "mtanlee07@gmail.com"
 
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{

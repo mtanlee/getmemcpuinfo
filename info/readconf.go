@@ -6,10 +6,10 @@ import (
 	"os"
 )
 
-func ReadConf() YunFanConf {
-	var rconf YunFanConf
-	filepath := "/etc/yunfanconf/"
-	name := "yunfan.conf"
+func ReadConf() GetInfoConf {
+	var rconf GetInfoConf
+	filepath := "/etc/getinfoconf/"
+	name := "getinfo.conf"
 	filename := filepath + name
 	f, err := os.OpenFile(filename, os.O_RDONLY|os.O_SYNC, os.ModeType)
 	defer f.Close()
@@ -27,10 +27,11 @@ func ReadConf() YunFanConf {
 func CreateConf() {
 	var (
 		f        *os.File
-		filepath = "/etc/yunfanconf/"
-		fname    = "yunfan.conf"
-		wconf    YunFanConf
+		filepath = "/etc/getinfoconf/"
+		fname    = "getinfo.conf"
+		wconf    []GetInfoConf
 	)
+
 	err := os.MkdirAll(filepath, 0777)
 	if err != nil {
 		return

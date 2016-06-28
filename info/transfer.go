@@ -24,6 +24,7 @@ import (
 
 func GetMemCpuInfo(addr string) {
 	var s Signature
+	log.Debug(addr)
 	rc := ReadConf()
 	s.AccessKeyId = rc.Ak
 	s.Action = rc.Action
@@ -39,7 +40,7 @@ func GetMemCpuInfo(addr string) {
 	s.Timestamp = fmt.Sprintf("%04d-%02d-%02dT%02d:%02d:%02dZ", year, mon, day, hour, min, sec)
 
 	t := time.Now()
-	d, _ := time.ParseDuration("-481m")
+	d, _ := time.ParseDuration("-482m")
 	tm := t.Add(d)
 	s.StartTime = tm.Format("2006-01-02T15:04Z")
 	k, _ := time.ParseDuration("-480m")
@@ -64,14 +65,16 @@ func GetMemCpuInfo(addr string) {
 	sha1 := base64.StdEncoding.EncodeToString(hash.Sum(nil))
 	sha1 = url.QueryEscape(sha1)
 	url := "https://rds.aliyuncs.com" + "/?" + string(str[1:]) + "&Signature=" + sha1
+	log.Debug(url)
 	response, err := http.Get(url)
 	var mc ALiYunReturnMC
 	if err != nil {
-		fmt.Println("err", err)
+		log.Error(err)
 
 	} else {
 		content, _ := ioutil.ReadAll(response.Body)
 		json.Unmarshal(content, &mc)
+		log.Debug(mc)
 		response.Body.Close()
 	}
 	var mem SendALiYunINFO
@@ -94,7 +97,7 @@ func GetMemCpuInfo(addr string) {
 
 	b, _ := json.Marshal(memcpu)
 	log.Infof(string(b))
-	res, _ := http.NewRequest("POST", fmt.Sprintf("http://%s/metric/push", addr), strings.NewReader(string(b)))
+	res, _ := http.NewRequest("POST", fmt.Sprintf("http://%s/push", addr), strings.NewReader(string(b)))
 	res.Header.Set("Content-Type", "application/json")
 	res.Header.Set("Connection", "close")
 	res.Header.Set("Token", rc.Token)
